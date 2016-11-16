@@ -1,5 +1,5 @@
-var Scrabble = function() {
-  this.scoreChart = {
+var Scrabble = {
+  scoreChart: {
     "A": 1,
     "E": 1,
     "I": 1,
@@ -26,34 +26,52 @@ var Scrabble = function() {
     "X": 8,
     "Q": 10,
     "Z": 10
-  };
-};
+  },
 
-// YOUR CODE HERE
-Scrabble.prototype.score = function(word) {
-  var string = word.toUpperCase();
-  var score = 0;
-  for(var i=0; i < string.length; i++) {
-    score += this.scoreChart[string[i]];
+  score: function(word) {
+    var string = word.toUpperCase(),
+        score = 0;
+    for(var i=0; i < string.length; i++) {
+      score += Scrabble.scoreChart[string[i]];
+    }
+    if (string.length === 7) {
+      score += 50;
+    }
+    return score;
+  },
+
+
+  highestScoreFrom: function(arrayOfWords) {
+    var winner = "";
+    var winningScore = 0;
+    arrayOfWords.forEach(function(word){
+      var wordScore = Scrabble.score(word);
+      if (wordScore > winningScore) {
+        winner = word;
+        winningScore = wordScore;
+      } else if (wordScore === winningScore) {
+        if (winner.length !== 7) {
+          if (word.length == 7) {
+            winner = word;
+            winningScore = wordScore;
+          } else if (word.length < winner.length) {
+            winner = word;
+            winningScore = wordScore;
+          }
+        }
+      }
+    });
+    return winner;
   }
-  if (string.length === 7) {
-    score += 50;
-  }
-  return score;
+
+
 };
-
-
-Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
-  return 'hello world!';
-};
-
-
-Scrabble.prototype.helloWorld = function() {
-  return 'hello world!';
-};
-
 module.exports = Scrabble;
 
-var yolo = new Scrabble();
-giveArray = yolo.score("yolo");
-console.log(giveArray);
+
+scoreWord = Scrabble.score("yolo");
+console.log(scoreWord);
+
+
+declareWinner = Scrabble.highestScoreFrom(["yolo", "poodle", "cheese", "zzzzzz", "aaaaaaa"]);
+console.log(declareWinner);
