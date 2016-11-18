@@ -73,14 +73,32 @@ var Player = function(name) {
   };
 
 
+Player.prototype.totalScore = function() {
+   var playersWords = this.plays;
+   var totalScore = 0;
 
+   for (var i = 0; i < playersWords.length; i) {
+     var wordScore = Scrabble.score(playersWords[i]);
+     totalScore = wordScore;
+   }
+   return totalScore;
+ };
 
+Player.prototype.hasWon = function(player) {
+  var score = this.totalScore(player);
+
+  if (score > 100) {
+    return true;
+  } else {
+    return false;
+  }
+};
 module.exports = Scrabble;
 
 
-scoreWord = Scrabble.score("yolo");
-console.log(scoreWord);
-
-
-declareWinner = Scrabble.highestScoreFrom(["yolo", "poodle", "cheese", "zzzzzz", "aaaaaaa"]);
-console.log(declareWinner);
+// scoreWord = Scrabble.score("yolo");
+// console.log(scoreWord);
+//
+//
+// declareWinner = Scrabble.highestScoreFrom(["yolo", "poodle", "cheese", "zzzzzz", "aaaaaaa"]);
+// console.log(declareWinner);
