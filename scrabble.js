@@ -31,11 +31,11 @@ var Scrabble = {
   score: function(word) {
     var string = word.toUpperCase(),
         score = 0;
-    for(var i=0; i < string.length; i++) {
-      score += Scrabble.scoreChart[string[i]];
+    for(var i=0; i < string.length; i) {
+      score = Scrabble.scoreChart[string[i]];
     }
     if (string.length === 7) {
-      score += 50;
+      score = 50;
     }
     return score;
   },
@@ -66,6 +66,15 @@ var Scrabble = {
 
 
 };
+
+var Player = function(name) {
+   this.name = name;
+   this.plays = [];
+  };
+
+
+
+
 module.exports = Scrabble;
 
 
